@@ -8,11 +8,11 @@ db.once("open", () => console.log("Open"));
 
 // selectall
 
-// router.get("/", async (req, res) => {
-//   let collection = await db.collection("MST_Program");
-//   let results = await collection.find({}).toArray();
-//   res.send(results).status(200);
-// });
+router.get("/", async (req, res) => {
+  let collection = await db.collection("MST_Program");
+  let results = await collection.find({}).toArray();
+  res.send(results).status(200);
+});
 
 // select by id
 const ObjectId = mongoose.Types.ObjectId;
@@ -60,16 +60,29 @@ router.delete("/:id", async (req, res) => {
   });
   res.send(results).status(200);
 });
-router.get("/", async (req, res) => {
+
+/* get by topic name using req.query or parameters in key value pair */
+
+// router.get("/", async (req, res) => {
+//   let collection = await db.collection("MST_Program");
+//   let result;
+//   if (req.query.program_topic === undefined) {
+//     result = await collection.find({}).toArray();
+//   } else {
+//     result = await collection
+//       .find({ program_topic: req.query.program_topic })
+//       .collation({ locale: "en", strength: 2 })
+//       .toArray();
+//   }
+//   res.send(result).status(200);
+// });
+
+router.get("/topics/:topic_name", async (req, res) => {
   let collection = await db.collection("MST_Program");
-  let result;
-  if (req.query.program_topic === undefined) {
-    result = await collection.find({}).toArray();
-  } else {
-    result = await collection
-      .find({ program_topic: req.query.program_topic}).collation( { locale: 'en', strength: 2 } )
-      .toArray();
-  }
+  let result = await collection
+    .find({ program_topic: req.params.topic_name })
+    .collation({ locale: "en", strength: 2 })
+    .toArray();
   res.send(result).status(200);
 });
 module.exports = router;

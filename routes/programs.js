@@ -1,10 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
-let db = mongoose.connection;
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("Open"));
+const db = require("../dbConnections");
 
 // selectall
 
@@ -35,7 +32,7 @@ router.post("/", async (req, res) => {
   res.send(results).status(201);
 });
 // update by id
-router.patch("/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   let collection = await db.collection("MST_Program");
   let results = await collection.updateOne(
     { _id: new ObjectId(req.params.id) },

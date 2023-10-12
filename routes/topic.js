@@ -38,5 +38,16 @@ router.delete("/:id", async (req, res) => {
   let result = await collection.deleteOne({ _id: new ObjectId(req.params.id) });
   res.send(result).status(200);
 });
+router.delete("/deleteFromTopic/:topic_name", async (req, res) => {
+  let collection = await db.collection("MST_ProgramTopic");
+  // const caseSensitiveRegex = new RegExp(`^${req.params.topic_name}$`);
+  
+  // const query = { topic_name: { $regex: caseSensitiveRegex } };
+  
+  // const result = await collection.deleteOne(query);
+  // console.log(caseSensitiveRegex + " " + result);
+  let result = await collection.deleteOne({ topic_name: req.params.topic_name});
+  res.send(result).status(200);
+});
 
 module.exports = router;

@@ -27,6 +27,8 @@ router.post("/", async (req, res) => {
     program_link: req.body.program_link,
     solution_link: req.body.solution_link,
     difficulty: req.body.difficulty,
+    program_description: req.body.program_description,
+    program_testcases: req.body.program_testcases,
     issolved: req.body.issolved,
   });
   res.send(results).status(201);
@@ -43,6 +45,8 @@ router.put("/:id", async (req, res) => {
         program_link: req.body.program_link,
         solution_link: req.body.solution_link,
         difficulty: req.body.difficulty,
+        program_description: req.body.program_description,
+        program_testcases: req.body.program_testcases,
         issolved: req.body.issolved,
       },
     }
